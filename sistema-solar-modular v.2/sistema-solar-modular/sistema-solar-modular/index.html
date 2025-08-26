@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Solar Modular con Rutas</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Pantalla de carga -->
+    <div class="loading-screen" id="loading">
+        <div class="loading-text">INICIALIZANDO SISTEMA SOLAR</div>
+        <div class="loading-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="hint">Sistema modular con enrutamiento avanzado</div>
+    </div>
+    
+    <!-- Sistema de rutas -->
+    <div id="route-system">
+        <button class="route-btn active" data-route="solar-system">Vista General</button>
+        <button class="route-btn" data-route="sun">Sol</button>
+        <button class="route-btn" data-route="mercury">Mercurio</button>
+        <button class="route-btn" data-route="venus">Venus</button>
+        <button class="route-btn" data-route="earth">Tierra</button>
+        <button class="route-btn" data-route="mars">Marte</button>
+        <button class="route-btn" data-route="jupiter">Júpiter</button>
+        <button class="route-btn" data-route="saturn">Saturno</button>
+        <button class="route-btn" data-route="uranus">Urano</button>
+        <button class="route-btn" data-route="neptune">Neptuno</button>
+    </div>
+    
+    <!-- Panel de información del planeta -->
+    <div id="planet-info">
+        <button class="close-info">&times;</button>
+        <h2 id="planet-name">Nombre del Planeta</h2>
+        <div id="planet-description">Descripción del planeta...</div>
+        <div class="planet-stats">
+            <div class="stat">
+                <div class="stat-label">Tamaño</div>
+                <div class="stat-value" id="planet-size">0.0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Distancia</div>
+                <div class="stat-value" id="planet-distance">0.0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Velocidad</div>
+                <div class="stat-value" id="planet-speed">0.0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Tipo</div>
+                <div class="stat-value" id="planet-type">-</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Panel de documentación -->
+    <div id="documentation">
+        <h3>Documentación del Sistema</h3>
+        <p>Arquitectura modular con sistema de rutas avanzado:</p>
+        <ul>
+            <li><span class="module-tag">Router.js</span> Maneja navegación entre vistas</li>
+            <li><span class="module-tag">LoadingScreen.js</span> Pantalla de carga con progreso</li>
+            <li><span class="module-tag">Textures.js</span> Genera texturas planetarias</li>
+            <li><span class="module-tag">Objects.js</span> Crea objetos 3D (planetas, estrellas)</li>
+            <li><span class="module-tag">SolarSystem.js</span> Configura sistema solar</li>
+            <li><span class="module-tag">Animation.js</span> Controla animaciones y transiciones</li>
+            <li><span class="module-tag">PlanetData.js</span> Datos de planetas y rutas</li>
+        </ul>
+        <p>Haz clic en los planetas o usa el sistema de rutas superior para navegar.</p>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

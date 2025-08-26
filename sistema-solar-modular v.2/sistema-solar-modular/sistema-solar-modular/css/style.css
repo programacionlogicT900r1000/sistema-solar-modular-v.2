@@ -1,0 +1,225 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: #000;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Pantalla de carga */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a2a, #000);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1.2s ease;
+}
+
+.loading-text {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #4CAF50;
+    text-shadow: 0 0 12px rgba(76, 175, 80, 0.6);
+    letter-spacing: 1.5px;
+}
+
+.loading-bar {
+    width: 300px;
+    height: 6px;
+    background: rgba(30, 50, 80, 0.6);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4CAF50, #2196F3);
+    border-radius: 3px;
+    transition: width 0.3s;
+}
+
+.hint {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: rgba(200, 220, 255, 0.7);
+    font-size: 14px;
+    opacity: 0.6;
+    animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+}
+
+/* Sistema de rutas */
+#route-system {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 20, 40, 0.7);
+    border-radius: 30px;
+    padding: 10px 15px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+    border: 1px solid rgba(100, 180, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.route-btn {
+    background: rgba(30, 80, 150, 0.5);
+    color: #e0f0ff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
+    text-align: center;
+}
+
+.route-btn:hover {
+    background: rgba(50, 120, 200, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.route-btn.active {
+    background: linear-gradient(90deg, #4CAF50, #2196F3);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+}
+
+/* Panel de documentación */
+#documentation {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 10, 30, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    max-width: 350px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(100, 180, 255, 0.2);
+    z-index: 100;
+}
+
+#documentation h3 {
+    color: #4CAF50;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(76, 175, 80, 0.3);
+    padding-bottom: 5px;
+}
+
+#documentation ul {
+    padding-left: 20px;
+}
+
+#documentation li {
+    margin-bottom: 8px;
+    color: #e0f0ff;
+}
+
+.module-tag {
+    display: inline-block;
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+/* Info de planeta */
+#planet-info {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    background: rgba(0, 20, 40, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    max-width: 300px;
+    border: 1px solid rgba(100, 180, 255, 0.3);
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+#planet-info.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#planet-info h2 {
+    color: #4CAF50;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.planet-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.stat {
+    background: rgba(30, 80, 150, 0.3);
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #88c1ff;
+}
+
+.stat-value {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.close-info {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: #88c1ff;
+    font-size: 18px;
+    cursor: pointer;
+}

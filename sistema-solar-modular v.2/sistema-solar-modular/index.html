@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Solar - Consola de Nave</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Pantalla de carga -->
+    <div class="loading-screen" id="loading">
+        <div class="loading-text">INICIALIZANDO SISTEMA SOLAR</div>
+        <div class="loading-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="hint">Consola de nave espacial v2.3.5</div>
+    </div>
+    
+    <!-- Sistema de rutas -->
+    <div id="route-system">
+        <button class="route-btn active" data-route="solar-system">Vista General</button>
+        <button class="route-btn" data-route="sun">Sol</button>
+        <button class="route-btn" data-route="mercury">Mercurio</button>
+        <button class="route-btn" data-route="venus">Venus</button>
+        <button class="route-btn" data-route="earth">Tierra</button>
+        <button class="route-btn" data-route="mars">Marte</button>
+        <button class="route-btn" data-route="jupiter">Júpiter</button>
+        <button class="route-btn" data-route="saturn">Saturno</button>
+        <button class="route-btn" data-route="uranus">Urano</button>
+        <button class="route-btn" data-route="neptune">Neptuno</button>
+    </div>
+    
+    <!-- Panel de información del planeta -->
+    <div id="planet-info">
+        <button class="close-info">&times;</button>
+        <h2 id="planet-name">Nombre del Planeta</h2>
+        <div id="planet-description">Descripción del planeta...</div>
+        <div class="planet-stats">
+            <div class="stat">
+                <div class="stat-label">Tamaño</div>
+                <div class="stat-value" id="planet-size">0.0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Distancia</div>
+                <div class="stat-value" id="planet-distance">0.0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Velocidad</div>
+                <div class="stat-value" id="planet-speed">0.0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Tipo</div>
+                <div class="stat-value" id="planet-type">-</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Consola de nave -->
+    <div id="console">
+        <div class="console-header">
+            <span>CONSOLA DE NAVEGACIÓN</span>
+            <button id="minimize-btn">_</button>
+        </div>
+        <div class="console-body">
+            <div class="console-output" id="console-output">
+                > Sistema iniciado<br>
+                > Módulos cargados<br>
+                > Esperando comandos...
+            </div>
+            <div class="console-input">
+                <span>></span>
+                <input type="text" id="console-input" autofocus>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Créditos del programador -->
+    <div id="credits">
+        Desarrollado por <a href="#" target="_blank">Tu Nombre</a>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

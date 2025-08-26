@@ -1,0 +1,393 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: #000;
+    height: 100vh;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    flex-direction: column;
+    color: #0f0;
+    background: radial-gradient(circle, #0a0a2a 0%, #000 70%);
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Pantalla de carga */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #0a0a2a 0%, #000 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1.2s ease;
+}
+
+.loading-text {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #0f0;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.loading-bar {
+    width: 400px;
+    height: 8px;
+    background: rgba(30, 80, 30, 0.4);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #0f0, #0a0);
+    border-radius: 4px;
+    transition: width 0.3s;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.hint {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: rgba(0, 255, 0, 0.7);
+    font-size: 14px;
+    opacity: 0.6;
+    animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        opacity: 0.4;
+        text-shadow: 0 0 5px rgba(0, 255, 0, 0.4);
+    }
+    50% { 
+        opacity: 1;
+        text-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+    }
+}
+
+/* Sistema de rutas */
+#route-system {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 30, 0, 0.3);
+    border-radius: 30px;
+    padding: 10px 15px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+.route-btn {
+    background: rgba(0, 60, 0, 0.5);
+    color: #0f0;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 110px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.route-btn:hover {
+    background: rgba(0, 100, 0, 0.7);
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+}
+
+.route-btn.active {
+    background: linear-gradient(90deg, #0a0, #0f0);
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+    border: 1px solid rgba(0, 255, 0, 0.5);
+}
+
+/* Panel de información del planeta */
+#planet-info {
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    background: rgba(0, 30, 0, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    max-width: 320px;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all 0.5s ease;
+    font-family: 'Courier New', monospace;
+}
+
+#planet-info.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#planet-info h2 {
+    color: #0f0;
+    margin-bottom: 15px;
+    font-size: 24px;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+    padding-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+#planet-info .planet-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#planet-info .stat {
+    background: rgba(0, 40, 0, 0.4);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+#planet-info .stat-label {
+    font-size: 12px;
+    color: #0a0;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+#planet-info .stat-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0f0;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.close-info {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #0a0;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-info:hover {
+    color: #0f0;
+}
+
+/* Consola de nave */
+#console {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: rgba(0, 20, 0, 0.7);
+    border-top: 2px solid rgba(0, 255, 0, 0.4);
+    font-family: 'Courier New', monospace;
+    color: #0f0;
+    display: flex;
+    flex-direction: column;
+    z-index: 200;
+    transition: height 0.5s ease;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+}
+
+#console.minimized {
+    height: 40px;
+}
+
+.console-header {
+    background: rgba(0, 30, 0, 0.8);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+    cursor: move;
+    user-select: none;
+}
+
+.console-header span {
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+#minimize-btn {
+    background: transparent;
+    border: none;
+    color: #0f0;
+    font-size: 24px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+
+#minimize-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+}
+
+.console-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.console-output {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.console-input {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 5px;
+}
+
+.console-input span {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #0a0;
+}
+
+.console-input input {
+    background: transparent;
+    border: none;
+    color: #0f0;
+    font-family: 'Courier New', monospace;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    padding: 5px;
+}
+
+/* Créditos del programador */
+#credits {
+    position: fixed;
+    bottom: 310px;
+    right: 20px;
+    color: rgba(0, 200, 0, 0.7);
+    font-size: 12px;
+    z-index: 150;
+    transition: bottom 0.5s ease;
+    background: rgba(0, 20, 0, 0.3);
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    backdrop-filter: blur(2px);
+}
+
+#console.minimized ~ #credits {
+    bottom: 50px;
+}
+
+#credits a {
+    color: #0f0;
+    text-decoration: none;
+    font-weight: bold;
+    transition: text-shadow 0.3s;
+}
+
+#credits a:hover {
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.8);
+}
+
+/* Barra de desplazamiento personalizada */
+.console-output::-webkit-scrollbar {
+    width: 8px;
+}
+
+.console-output::-webkit-scrollbar-track {
+    background: rgba(0, 20, 0, 0.2);
+}
+
+.console-output::-webkit-scrollbar-thumb {
+    background: rgba(0, 100, 0, 0.5);
+    border-radius: 4px;
+}
+
+.console-output::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 150, 0, 0.7);
+}
+
+/* === Cambios agregados === */
+
+/* Permitir que los eventos pasen a través de elementos no interactivos */
+#route-system,
+#planet-info:not(.active),
+#credits,
+#documentation {
+    pointer-events: none;
+}
+
+/* Elementos interactivos dentro de estos contenedores */
+#route-system .route-btn,
+#planet-info.active .close-info,
+#planet-info.active .stat,
+#console *,
+#credits a {
+    pointer-events: auto;
+}
+
+/* La consola siempre debe ser interactiva */
+#console {
+    pointer-events: auto;
+}
